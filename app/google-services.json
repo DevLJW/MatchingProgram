@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "721169905984",
+    "firebase_url": "https://matching-cdf87-default-rtdb.firebaseio.com",
+    "project_id": "matching-cdf87",
+    "storage_bucket": "matching-cdf87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721169905984:android:0401b4bd729b816bc9e2a5",
+        "android_client_info": {
+          "package_name": "com.example.matching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721169905984-sla4mjphijheufpddud5j8o6ts28l52g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASUClZad9W25SCi82MIcs5gIFTB8Y2V1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721169905984-sla4mjphijheufpddud5j8o6ts28l52g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
