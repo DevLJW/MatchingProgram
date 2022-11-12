@@ -187,7 +187,7 @@ class LoginActivity: AppCompatActivity() {
 
     private fun initFacebookLoginButton() {
 
-       // binding.facebookLoginbtn.setPermissions(listOf(EMAIL, PUBLIC_PROFILE))
+        binding.facebookLoginbtn.setPermissions(listOf(EMAIL, PUBLIC_PROFILE))
         //로그인 버튼을 클릭했을때 계정에서 이메일과 프로필 정보를 가져오겠다.
 
 
