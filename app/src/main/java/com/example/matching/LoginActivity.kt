@@ -93,7 +93,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
 
-    //패스워드
+    //회원가입
     private fun initJoinButton() {
 
         binding.joinbtn.setOnClickListener() {
@@ -247,6 +247,8 @@ class LoginActivity: AppCompatActivity() {
         val user = mutableMapOf<String,Any>()
         user["userId"] = userId
         currenUserDB.updateChildren(user)
+
+        finish()
 
 
 
