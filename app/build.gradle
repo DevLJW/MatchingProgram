@@ -53,6 +53,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx' //Authentication 인증 관련 라이브러리
+    implementation 'com.google.firebase:firebase-database-ktx' //Firebase RealTimeDataBase 관련 라이브러리
 
     implementation 'com.facebook.android:facebook-login:latest.release'
 

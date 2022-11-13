@@ -22,11 +22,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onStart() {
+    override fun onStart() { //앱이 시작될 떄, 로그인이 되어 있다면, 라이크 액티비티, 로그인이 되어있지 않다면 로그인 액티비티가 실행
         super.onStart()
+
         if (auth.currentUser == null) {
+
             startActivity(Intent(this, LoginActivity::class.java))
+
+
+        }else{
+
+            startActivity(Intent(this, LikeActivity::class.java))
+
         }
+
 
     }
 }

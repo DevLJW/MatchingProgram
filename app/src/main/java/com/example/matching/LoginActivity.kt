@@ -21,6 +21,7 @@ import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -76,7 +77,7 @@ class LoginActivity: AppCompatActivity() {
 
                     if (task.isSuccessful) {
 
-                        finish() //로그인이 되어있는 경우 finish()로 로그인 액티비티 종료
+                   successLogin() //로그인이 되어있는 경우 finish()로 로그인 액티비티 종료
                     } else {
                         Toast.makeText(
                             this,
@@ -203,7 +204,7 @@ class LoginActivity: AppCompatActivity() {
                     auth.signInWithCredential(credential)
                         .addOnCompleteListener(this@LoginActivity) { task ->
                             if (task.isSuccessful) {
-                                finish()
+                                successLogin()
                             } else {
                                 Toast.makeText(
                                     this@LoginActivity,
@@ -233,6 +234,23 @@ class LoginActivity: AppCompatActivity() {
 
 
     }
+
+    private fun successLogin() {
+
+        if(auth.currentUser == null){
+            Toast.makeText(this,"로그인에 실패 하였습니다.",Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val userId = auth.currentUser?.uid.orEmpty() // 로그인한 사용자의 uid 가져오기 널일경우 empty로 바꾸기
+        val currenUserDB = Firebase.database.reference.child("Users").child(userId) //최상위 레퍼런스 중에서 Users 선택 없으면 하나 생성
+        val user = mutableMapOf<String,Any>()
+        user["userId"] = userId
+        currenUserDB.updateChildren(user)
+
+
+
+   }
 
     override fun onActivityResult(
         requestCode: Int,
