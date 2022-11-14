@@ -52,26 +52,26 @@ class LoginActivity: AppCompatActivity() {
 
 
         //Ctrl + alt + m 단축키
-        init_LoginButton()
-        initJoinButton()
-        initEmailAndPasswordEditText()
-        initFacebookLoginButton()
+        init_LoginButton() //로그인 버튼 초기화 메소드
+        initJoinButton()   //회원가입 버튼 초기화 메소드
+        initEmailAndPasswordEditText() //이메일 패스워드 감지 패스워드
+        initFacebookLoginButton() //페이스북 로그인 버튼 초기화 메소드
 
 
     }
 
 
     //로그인
-    private fun init_LoginButton() {
+    private fun init_LoginButton() { //로그인 버튼 초기화
 
 
-        binding.logindbtn.setOnClickListener() {
+        binding.logindbtn.setOnClickListener() { //로그인 버튼 클릭 시,
 
             val email = getInputEmail()
             val password = getInputPassword()
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { //파이어베이스 로그인 메소드
+            auth.signInWithEmailAndPassword(email, password)//파이어베이스 인증 로그인 메소드
+                .addOnCompleteListener(this) {
 
                         task ->
 
@@ -125,14 +125,14 @@ class LoginActivity: AppCompatActivity() {
     }
 
 
-    private fun getInputEmail(): String {
+    private fun getInputEmail(): String {  //입력한 이메일을 가져오는 메소드
 
         return binding.emailtext.text.toString()
 
     }
 
 
-    private fun getInputPassword(): String {
+    private fun getInputPassword(): String { // 입력한 패스워드를 가져오는 메소드
 
         return binding.passwordtext.text.toString()
 
@@ -152,8 +152,10 @@ class LoginActivity: AppCompatActivity() {
             타이핑 되는 텍스트에 변화가 있으면 작동됩니다.
             */
 
+
+            //둘다 안비어있을때 true 그 외, false
             val enable =
-                binding.emailtext.text.isNotEmpty() && binding.passwordtext.text.isNotEmpty() //결과값은 true or false
+            binding.emailtext.text.isNotEmpty() && binding.passwordtext.text.isNotEmpty()  or false
 
             binding.logindbtn.isEnabled = enable
             binding.joinbtn.isEnabled = enable
@@ -191,7 +193,7 @@ class LoginActivity: AppCompatActivity() {
        // binding.facebookLoginbtn.setPermissions(listOf(EMAIL, PUBLIC_PROFILE))
         //로그인 버튼을 클릭했을때 계정에서 이메일과 프로필 정보를 가져오겠다.
 
-
+        //페이스북 버튼에 로그인 관련 콜백메소드 추가
         binding.facebookLoginbtn.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
 
@@ -199,6 +201,7 @@ class LoginActivity: AppCompatActivity() {
                     //로그인이 성공했을 경우, LoginResult에서 액세스 토큰을 가져온 후, Firebase에 넘긴다.
 
                     val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+                    //FacebookAuthProvider 클래스 타입의 zza 변수에 담겨 반환
 
                     //토큰을 넘겨주는 방식으로 로그인 진행
                     auth.signInWithCredential(credential)
@@ -245,20 +248,22 @@ class LoginActivity: AppCompatActivity() {
         val userId = auth.currentUser?.uid.orEmpty() // 로그인한 사용자의 uid 가져오기 널일경우 empty로 바꾸기
         val currenUserDB = Firebase.database.reference.child("Users").child(userId) //최상위 레퍼런스 중에서 Users 선택 없으면 하나 생성
         val user = mutableMapOf<String,Any>()
-        user["userId"] = userId
-        currenUserDB.updateChildren(user)
+        user["userId"] = userId //Uid의 하위 값
+        currenUserDB.updateChildren(user) //uid의 하위값 업데이트
 
-        finish()
+        finish() //Login Activity에서 finish()를 하면 MainActivity로 가고 if문을 통해 LikeActivity로 이동
 
 
 
    }
-
+//페이스북에서 로그인이 끝난 후 다시 LoginActivity로 왔을때 onActivityResult 콜백메소드 실행
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
         data: Intent?
-    ) { //페이스북에 로그인한 정보가 ActivityResult()로 넘어옴
+    ) {
+
+        //페이스북에 로그인한 정보가 ActivityResult()로 넘어옴
 
         super.onActivityResult(requestCode, resultCode, data)
 
