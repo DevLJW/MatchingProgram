@@ -2,8 +2,8 @@ package com.example.matching
 
 data class CardItem(
 
-    val userId: String,
-    val name : String
+    var userId: String,
+    var name : String
 
 
 )
