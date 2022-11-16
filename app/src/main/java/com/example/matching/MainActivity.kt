@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         }else{
 
-            startActivity(Intent(this, LikeActivity::class.java))
+            startActivity(Intent(this, LikeActivity::class.java)) //뒤로가기를 눌러서 껏을경우 다시 실행되므로 나갈수 없는 상황 발생
+            finish()
 
         }
 
