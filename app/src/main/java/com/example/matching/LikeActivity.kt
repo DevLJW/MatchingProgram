@@ -54,7 +54,7 @@ class LikeActivity : AppCompatActivity(),CardStackListener {
                     return
                 }
 
-                getUnSelectedUsers()
+                getUnSelectedUsers() //DB네임 값이 있으면
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -144,9 +144,10 @@ class LikeActivity : AppCompatActivity(),CardStackListener {
     private fun getUnSelectedUsers() {
 
         userDB.addChildEventListener(object :
-            ChildEventListener { //최상위 루트로부터 변경사항이 발생하면 하단의 콜백메소드 실행.
+            ChildEventListener { //Users 테이블 밑의 최상위 루트로부터 변경사항이 발생하면 하단의 콜백메소드 실행.
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            //내아이디가 아니고, 상대방의 like, disLiked에 내 아이디가 없으면 내가 좋아요를 누르지 않았다.
                 if (snapshot.child("userId").value != getCurrentUserID() &&
                     snapshot.child("likedBy").child("like")
                         .hasChild(getCurrentUserID()).not() && snapshot.child("likedBy")
@@ -211,7 +212,7 @@ class LikeActivity : AppCompatActivity(),CardStackListener {
         })
     }
 
-    private fun like() {
+    private fun like() { //오른쪽으로 스와이프 했을때
 
         val card = cardItems[manager.topPosition - 1] // 데이터를 가져올 때 인덱스 값은 0부터 시작하기 때문에 -1을 해준다.
         cardItems.removeFirst()
